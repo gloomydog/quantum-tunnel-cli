@@ -35,9 +35,9 @@ i \frac{\partial \psi(x,t)}{\partial t} = \left[ -\frac{1}{2}\frac{\partial^2}{\
 
 ### 1.2 Split-step Fourier method (Strang splitting)
 
-The right-hand side splits into a kinetic term $T = -\frac12 \partial_x^2$,
-diagonal in momentum space, and a potential term $V(x)$, diagonal in
-position space. Over a small time step $\Delta t$ we approximate the
+The right-hand side splits into a kinetic term $`T = -\frac12 \partial_x^2`$,
+diagonal in momentum space, and a potential term $`V(x)`$, diagonal in
+position space. Over a small time step $`\Delta t`$ we approximate the
 propagator with a second-order (Strang) splitting:
 
 ```math
@@ -56,7 +56,7 @@ use their own compact FFT (iterative radix-2 Cooley–Tukey, O(N log N)),
 so there is no dependency on FFTW or any external numerical library.
 
 The momentum grid follows the usual FFT frequency ordering: for a domain
-of length $L = 2 x_{\max}$ sampled at $N$ points,
+of length $`L = 2 x_{\max}`$ sampled at $`N`$ points,
 
 ```math
 k_i = \begin{cases} 2\pi i / L & i < N/2 \\ 2\pi (i-N)/L & i \ge N/2 \end{cases}
@@ -68,17 +68,17 @@ An FFT-based method is implicitly periodic — a wave packet leaving the
 right edge would reappear on the left. To emulate an open system (the
 packet "disappears once it reaches the edge of the screen") and to
 suppress that wraparound aliasing, a complex absorbing potential (CAP)
-$-i\Gamma(x)$ is added near the domain edges:
+$`-i\Gamma(x)`$ is added near the domain edges:
 
 ```math
 V_{\text{eff}}(x) = V(x) - i\,\Gamma(x), \qquad
 \Gamma(x) = \eta \left[ \frac{\max(0,\, |x| - (x_{\max}-w))}{w} \right]^2
 ```
 
-where $w$ is the absorbing-layer width (`--absorb-width`, a fraction of
-the domain) and $\eta$ is its strength (`--absorb-strength`). Substituting
-$V_{\text{eff}}$ into the propagator above adds a real, non-unitary decay
-factor $e^{-\Gamma(x)\Delta t}$ that smoothly damps the amplitude before
+where $`w`$ is the absorbing-layer width (`--absorb-width`, a fraction of
+the domain) and $`\eta`$ is its strength (`--absorb-strength`). Substituting
+$`V_{\text{eff}}`$ into the propagator above adds a real, non-unitary decay
+factor $`e^{-\Gamma(x)\Delta t}`$ that smoothly damps the amplitude before
 it reaches the boundary, without introducing spurious reflections (unlike
 a hard wall or an abrupt cutoff).
 
@@ -88,24 +88,24 @@ a hard wall or an abrupt cutoff).
 \psi(x,0) = (2\pi\sigma^2)^{-1/4}\, \exp\!\left[-\frac{(x-x_0)^2}{4\sigma^2}\right] \exp[i k_0 x]
 ```
 
-a minimum-uncertainty Gaussian centered at $x_0$ with spatial width
-$\sigma$ (`--sigma`) and mean momentum $k_0$ (`--k0`), so the mean
-kinetic energy is approximately $E_0 = k_0^2/2$.
+a minimum-uncertainty Gaussian centered at $`x_0`$ with spatial width
+$\sigma$ (`--sigma`) and mean momentum $`k_0`$ (`--k0`), so the mean
+kinetic energy is approximately $`E_0 = k_0^2/2`$.
 
 ### 1.5 Potentials
 
 | `--potential`  | formula | notes |
 |----------------|---------|-------|
-| `rectangular` (default) | $V(x)=V_0$ for $x\in[c_i-w/2,\,c_i+w/2)$, else 0 | one or more barriers (`--num-barriers`), centered at $c_i = (i-\tfrac{n-1}{2})\,s$ with spacing $s$ (`--spacing`, default $3w$) |
-| `well` | same shape, $V_0 = -\lvert\text{height}\rvert$ | attractive square well(s) |
-| `harmonic` | $V(x) = \tfrac12\omega^2 x^2$, with $\omega^2 = 2\,\text{height}/\text{width}^2$ | `--width` sets the curvature via $V(\text{width}) = \text{height}$ |
-| `coulomb` | $V(x) = \dfrac{\text{height}}{\sqrt{x^2+\varepsilon^2}}$ | repulsive 1/r barrier, softened by $\varepsilon = $ `--width` to avoid the $x=0$ singularity — the same shape of barrier tunneled through in alpha decay and nuclear fusion (Gamow's theory) |
+| `rectangular` (default) | ```math $V(x)=V_0$ for $x\in[c_i-w/2,\,c_i+w/2)$, else 0``` | one or more barriers (`--num-barriers`), centered at $`c_i = (i-\tfrac{n-1}{2})\,s$ with spacing $s`$ (`--spacing`, default $3w$) |
+| `well` | same shape, $`V_0 = -\lvert\text{height}\rvert`$ | attractive square well(s) |
+| `harmonic` | ```math V(x) = \tfrac12\omega^2 x^2$, with $\omega^2 = 2\,\text{height}/\text{width}^2``` | `--width` sets the curvature via $`V(\text{width}) = \text{height}`$ |
+| `coulomb` | ```math V(x) = \dfrac{\text{height}}{\sqrt{x^2+\varepsilon^2}}``` | repulsive 1/r barrier, softened by $`\varepsilon = `$ `--width` to avoid the $`x=0`$ singularity — the same shape of barrier tunneled through in alpha decay and nuclear fusion (Gamow's theory) |
 
 ### 1.6 What the numbers on screen mean
 
-`norm` is $\int|\psi|^2\,dx$ (should start at 1.0 and only decrease once
+`norm` is $`\int|\psi|^2\,dx`$ (should start at 1.0 and only decrease once
 probability reaches the absorbing layer or tunnels through and leaves).
-`left`/`right` are the same integral restricted to $x<0$ / $x\ge 0$, a
+`left`/`right` are the same integral restricted to $`x<0`$ / $`x\ge 0`$, a
 quick way to see how much of the packet has been reflected vs.
 transmitted through a barrier centered at the origin.
 
