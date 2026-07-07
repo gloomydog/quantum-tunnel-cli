@@ -28,9 +28,10 @@ hack on).
 We solve the 1D time-dependent Schrödinger equation in natural units
 (ħ = m = 1):
 
-$$
+```math
 i \frac{\partial \psi(x,t)}{\partial t} = \left[ -\frac{1}{2}\frac{\partial^2}{\partial x^2} + V(x) \right] \psi(x,t)
-$$
+```
+
 
 ### 1.2 Split-step Fourier method (Strang splitting)
 
@@ -39,11 +40,11 @@ diagonal in momentum space, and a potential term $V(x)$, diagonal in
 position space. Over a small time step $\Delta t$ we approximate the
 propagator with a second-order (Strang) splitting:
 
-$$
+```math
 \psi(x, t+\Delta t) \approx
 e^{-iV(x)\Delta t/2}\;
 \mathcal{F}^{-1}\!\left[ e^{-i k^2 \Delta t/2}\; \mathcal{F}\!\left[ e^{-iV(x)\Delta t/2}\,\psi(x,t) \right] \right]
-$$
+```
 
 i.e. half a step of the potential phase, a full step of the kinetic
 phase (applied as a simple multiplication in momentum space via FFT),
@@ -57,9 +58,9 @@ so there is no dependency on FFTW or any external numerical library.
 The momentum grid follows the usual FFT frequency ordering: for a domain
 of length $L = 2 x_{\max}$ sampled at $N$ points,
 
-$$
+```math
 k_i = \begin{cases} 2\pi i / L & i < N/2 \\ 2\pi (i-N)/L & i \ge N/2 \end{cases}
-$$
+```
 
 ### 1.3 Absorbing boundary (open boundary condition)
 
@@ -69,10 +70,10 @@ packet "disappears once it reaches the edge of the screen") and to
 suppress that wraparound aliasing, a complex absorbing potential (CAP)
 $-i\Gamma(x)$ is added near the domain edges:
 
-$$
+```math
 V_{\text{eff}}(x) = V(x) - i\,\Gamma(x), \qquad
 \Gamma(x) = \eta \left[ \frac{\max(0,\, |x| - (x_{\max}-w))}{w} \right]^2
-$$
+```
 
 where $w$ is the absorbing-layer width (`--absorb-width`, a fraction of
 the domain) and $\eta$ is its strength (`--absorb-strength`). Substituting
@@ -83,9 +84,9 @@ a hard wall or an abrupt cutoff).
 
 ### 1.4 Initial condition: Gaussian wave packet
 
-$$
+```math
 \psi(x,0) = (2\pi\sigma^2)^{-1/4}\, \exp\!\left[-\frac{(x-x_0)^2}{4\sigma^2}\right] \exp[i k_0 x]
-$$
+```
 
 a minimum-uncertainty Gaussian centered at $x_0$ with spatial width
 $\sigma$ (`--sigma`) and mean momentum $k_0$ (`--k0`), so the mean
