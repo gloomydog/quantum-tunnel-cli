@@ -96,9 +96,9 @@ kinetic energy is approximately $`E_0 = k_0^2/2`$.
 
 | `--potential`  | formula | notes |
 |----------------|---------|-------|
-| `rectangular` (default) | $`$V(x)=V_0$ for $x\in[c_i-w/2,\,c_i+w/2)$, else 0`$ | one or more barriers (`--num-barriers`), centered at $`c_i = (i-\tfrac{n-1}{2})\,s`$ with spacing $`s`$ (`--spacing`, default $`3w`$) |
+| `rectangular` (default) | $`$V(x)=V_0`$ for $`x\in[c_i-w/2,\,c_i+w/2)`$, else $`0`$ | one or more barriers (`--num-barriers`), centered at $`c_i = (i-\tfrac{n-1}{2})\,s`$ with spacing $s$ (`--spacing`, default $3w$) |
 | `well` | same shape, $`V_0 = -\lvert\text{height}\rvert`$ | attractive square well(s) |
-| `harmonic` | $`math V(x) = \tfrac12\omega^2 x^2$, with $\omega^2 = 2\,\text{height}/\text{width}^2`$ | `--width` sets the curvature via $`V(\text{width}) = \text{height}`$ |
+| `harmonic` | $`math V(x) = \tfrac12\omega^2 x^2`$, with $`\omega^2 = 2\,\text{height}/\text{width}^2`$ | `--width` sets the curvature via $`V(\text{width}) = \text{height}`$ |
 | `coulomb` | $`math V(x) = \dfrac{\text{height}}{\sqrt{x^2+\varepsilon^2}}`$ | repulsive 1/r barrier, softened by $`\varepsilon = `$ `--width` to avoid the $`x=0`$ singularity — the same shape of barrier tunneled through in alpha decay and nuclear fusion (Gamow's theory) |
 
 ### 1.6 What the numbers on screen mean
