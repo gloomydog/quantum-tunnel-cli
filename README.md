@@ -15,6 +15,10 @@ pick whichever fits your environment (the C version starts faster and has
 no runtime dependencies beyond ncurses; the Python version is easier to
 hack on).
 
+
+![screenshot](images/screenshot.png)
+
+![screencast](images/screencast.gif)
 ---
 
 ## 1. Theoretical background
